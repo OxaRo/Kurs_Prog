@@ -1,61 +1,62 @@
 //22. Написать программу для перевода цен хранящихся в файле из цифр в слова.
 
-#include <stdio.h>
-#include <conio.h>
+#include <cstdio>
 #include <stdlib.h>
-#include <string.h>
+//#include <string.h>
 #include <iostream>
 #include <iomanip>
 using namespace std;
 struct Num {float c; string data;} t;
 int j = 0;
-void Input(FILE *);
-void Translate(FILE *);
-void AddToFile(FILE *);
-void PrintFile(FILE *);
+void Input();
+void Translate();
+void AddToFile();
+void PrintFile();
 
 int main(){
   setlocale(LC_ALL, "Rus");
   char ch;
-  FILE *tf;
+ // FILE *tf;
   while(1){
-    puts("\n1 - Новый файл \n2 - Добавить \n3 - Преобразовать и вывести на экран \n0 - Выход");
-	ch = getch();
+    cout << "\n1 - Новый файл \n2 - Добавить \n3 - Преобразовать и вывести на экран \n0 - Выход";
+	cin >> ch;
     switch(ch){
       case '1': {
-		Input(tf); break;
+		Input(); break;
 	  }
       case '2': {
-		AddToFile(tf); break;
+		AddToFile(); break;
 	  }
 	  case '3':{
-		Translate(tf); break;
+		Translate(); break;
 	  }
       case '0': return 0;
-      default: puts("\nОшибка");
+      default: cout << "\nОшибка";
     }
   }
 }
 
-void Input(FILE *tf){
+void Input(){
   setlocale(LC_ALL, "Rus");
   char ch;
+FILE *tf;
   remove ("file1.dat");
   tf = fopen("file1.dat","wb");
-  printf("\n  Ввод данных:");
+  cout << "\n  Ввод данных:";
   do{
-    printf("\nЦена: "); cin >> t.c;
+    cout << "\nЦена: "; cin >> t.c;
     fwrite(&t, sizeof(t), 1, tf);
-    printf("\nЗакончить?  д/н  ");
+    cout << "\nЗакончить?  д/н  ";
     j++;
-    ch = getch();
+    cin >> ch;
   } while (ch == -83 || ch == 121);
   fclose(tf);
 }
 
-void Translate(FILE *tf){
+void Translate(){
   setlocale(LC_ALL, "Rus");
-  int r, l, ts, h, t_u, u, ten, d_t, d_u, f_t = 0, f_d = 0;
+FILE *tf;
+  int r, l, ts, h, u, ten, d_t, d_u, f_t = 0, f_d = 0;
   string p;
   FILE *kf;
   remove ("file2.dat");
@@ -195,17 +196,18 @@ void Translate(FILE *tf){
   fclose(kf);
 }
 
-void AddToFile(FILE *tf){
+void AddToFile(){
   setlocale(LC_ALL, "Rus");
+FILE *tf;
   char ch;
   tf = fopen("file1.dat","ab");
-  printf("\n  Ввод данных:");
+  cout << "\n  Ввод данных:";
   do{
-    printf("\nЦена: "); cin >> t.c;
+    cout << "\nЦена: "; cin >> t.c;
     fwrite(&t, sizeof(t), 1, tf);
     j++;
-    printf("\nЗакончить?  д/н  ");
-    ch = getch();
+    cout << "\nЗакончить?  д/н  ";
+    cin >> ch;
   } while (ch == -83 || ch == 121);
   fclose(tf);
 }
